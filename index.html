@@ -282,35 +282,66 @@
       >
         <div class="flex items-center gap-space-lg">
           <nav
-            class="hidden xl:flex items-center gap-space-lg"
+            class="flex items-center gap-1 sm:gap-space-md xl:gap-space-lg"
+            aria-label="Primary"
             data-active-classes="text-text-primary border-b-2 border-border-focus font-label-md text-label-md"
           >
             <a
               aria-current="page"
-              class="font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
+              aria-label="About"
+              class="inline-flex items-center justify-center min-w-10 min-h-10 xl:min-w-0 xl:min-h-0 font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
               data-path="about"
               href="#hero"
-              >About</a
+              title="About"
+              ><span
+                class="material-symbols-outlined text-[22px] xl:hidden"
+                aria-hidden="true"
+                >person</span
+              ><span class="hidden xl:inline">About</span></a
             ><a
-              class="font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
+              aria-label="Skills"
+              class="inline-flex items-center justify-center min-w-10 min-h-10 xl:min-w-0 xl:min-h-0 font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
               data-path="skills"
               href="#skills"
-              >Skills</a
+              title="Skills"
+              ><span
+                class="material-symbols-outlined text-[22px] xl:hidden"
+                aria-hidden="true"
+                >handyman</span
+              ><span class="hidden xl:inline">Skills</span></a
             ><a
-              class="font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
+              aria-label="UI/UX"
+              class="inline-flex items-center justify-center min-w-10 min-h-10 xl:min-w-0 xl:min-h-0 font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
               data-path="ui-ux-projects"
               href="#ui-projects"
-              >UI/UX</a
+              title="UI/UX"
+              ><span
+                class="material-symbols-outlined text-[22px] xl:hidden"
+                aria-hidden="true"
+                >devices</span
+              ><span class="hidden xl:inline">UI/UX</span></a
             ><a
-              class="font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
+              aria-label="3D Modeling"
+              class="inline-flex items-center justify-center min-w-10 min-h-10 xl:min-w-0 xl:min-h-0 font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
               data-path="3d-modeling"
               href="#3d-renders"
-              >3D Modeling</a
+              title="3D Modeling"
+              ><span
+                class="material-symbols-outlined text-[22px] xl:hidden"
+                aria-hidden="true"
+                >view_in_ar</span
+              ><span class="hidden xl:inline">3D Modeling</span></a
             ><a
-              class="font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
+              aria-label="Get in Touch"
+              class="inline-flex items-center justify-center min-w-10 min-h-10 xl:min-w-0 xl:min-h-0 font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
               data-path="contact"
               href="#contact"
-              >Get in Touch</a
+              title="Get in Touch"
+              ><span
+                class="material-symbols-outlined text-[22px] xl:hidden"
+                aria-hidden="true"
+                >mail</span
+              ><span class="hidden xl:inline">Get in Touch</span></a
             >
           </nav>
         </div>
@@ -346,7 +377,7 @@
                 >
                   <!-- Status Badge & Pulse -->
                   <div
-                    class="inline-flex items-center gap-space-sm px-space-md py-space-xs rounded bg-surface-container-low border border-border-subtle"
+                    class="inline-flex items-center justify-center md:justify-start gap-space-sm px-space-md py-space-xs rounded bg-transparent md:bg-surface-container-low border border-transparent md:border-border-subtle w-full md:w-auto"
                   >
                     <span
                       class="font-label-sm text-label-md uppercase tracking-wider text-text-muted"
@@ -354,7 +385,7 @@
                     >
                   </div>
                   <!-- Hero Typography -->
-                  <div class="space-y-space-xs">
+                  <div class="space-y-space-xs text-center md:text-left">
                     <h1
                       class="font-display-hero text-display-hero tracking-tighter text-text-primary uppercase leading-none"
                     >
@@ -368,7 +399,7 @@
                   </div>
                   <!-- Narrative / Editorial Summary -->
                   <p
-                    class="font-body-lg text-body-lg text-text-muted max-w-xl leading-relaxed"
+                    class="font-body-lg text-body-lg text-text-muted max-w-xl leading-relaxed text-center md:text-left"
                   >
                     UI/UX Designer with 4 years of experience designing
                     user-centered web, mobile, and tablet applications.
@@ -379,7 +410,7 @@
                   </p>
                   <!-- Dual CTA Action Cluster -->
                   <div
-                    class="flex flex-wrap items-center gap-space-md pt-space-xs"
+                    class="flex w-full md:w-auto items-center justify-center md:gap-space-md pt-space-xs"
                   >
                     <a
                       class="inline-flex items-center gap-space-xs px-space-lg py-space-md rounded bg-primary-container text-on-primary-container font-label-md text-label-md uppercase tracking-wider hover:bg-accent-crimson-hover transition-colors shadow-lg shadow-primary-container/10 group"
@@ -653,9 +684,10 @@
                       <p
                         class="font-body-md text-body-md text-text-muted leading-relaxed"
                       >
-                        A luxury couture house for fur babies. PAWz shapes
-                        tailored garments and a quiet shopping experience, so
-                        dressing a pet feels as considered as dressing yourself.
+                        A luxury couture boutique for fur babies. Cotton & Co
+                        brings together exquisitely tailored garments and
+                        timeless style, making dressing your pet feel as
+                        considered as dressing yourself.
                       </p>
                     </div>
                   </div>
@@ -710,16 +742,6 @@
                     3D MODELING &amp; RENDERS
                   </h2>
                   <span class="h-px bg-border-subtle flex-1"></span>
-                </div>
-                <div class="flex justify-center mt-space-md">
-                  <div
-                    class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-card border border-border-subtle"
-                  >
-                    <span
-                      class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted"
-                      >OCTANE / CYCLES / 4K PBR PIPELINE</span
-                    >
-                  </div>
                 </div>
               </div>
               <div
