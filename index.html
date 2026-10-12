@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="web_standard" name="shell-type" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @layer base {
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        html {
+          scroll-behavior: smooth;
+          scroll-padding-top: 6rem;
+        }
+        body {
+          overscroll-behavior: none;
+        }
+        main > :first-child {
+          margin-top: 0 !important;
+        }
+        main > :last-child {
+          margin-bottom: 0 !important;
+        }
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      #project-sheet {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        max-height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        overflow: hidden;
+      }
+      #project-sheet::backdrop {
+        background: rgb(13 13 17 / 0.72);
+      }
+      #project-sheet-panel {
+        transform: translateY(100%);
+        transition: transform 0.45s ease;
+      }
+      #project-sheet.is-open #project-sheet-panel {
+        transform: translateY(0);
+      }
+      #project-sheet-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: #5c403c transparent;
+      }
+      #project-sheet-scroll::-webkit-scrollbar {
+        display: block;
+        width: 8px;
+      }
+      #project-sheet-scroll::-webkit-scrollbar-thumb {
+        background: #5c403c;
+        border-radius: 999px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #project-sheet-panel {
+          transition: none;
+        }
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              surface: "#131317",
+              "border-focus": "#b23a48",
+              "surface-dim": "#131317",
+              "inverse-on-surface": "#303034",
+              error: "#ffb4ab",
+              "tertiary-fixed-dim": "#c6c6c8",
+              "on-background": "#e4e1e7",
+              outline: "#ac8884",
+              "surface-base": "#0d0d11",
+              "surface-tint": "#ffb4ab",
+              "on-primary-container": "#fff6f5",
+              "surface-variant": "#353439",
+              "on-surface": "#e4e1e7",
+              "secondary-fixed": "#e2e1ed",
+              "surface-card-hover": "#1e1e27",
+              "primary-fixed-dim": "#ffb4ab",
+              "text-primary": "#f4f4f6",
+              "primary-fixed": "#ffdad6",
+              "inverse-primary": "#b23a48",
+              "outline-variant": "#5c403c",
+              "on-tertiary-fixed-variant": "#454749",
+              "surface-bright": "#39393d",
+              "error-container": "#b23a48",
+              secondary: "#c6c5d1",
+              "primary-container": "#b23a48",
+              "border-subtle": "#262630",
+              "on-tertiary": "#2f3132",
+              "on-tertiary-fixed": "#1a1c1d",
+              "on-error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#b23a48",
+              "surface-card": "#18181f",
+              "on-primary-fixed": "#410002",
+              "surface-container-high": "#2a292e",
+              "on-secondary-fixed": "#1a1b24",
+              "surface-container-low": "#1b1b1f",
+              "inverse-surface": "#e4e1e7",
+              "on-secondary-fixed-variant": "#454650",
+              "text-muted": "#8e8e99",
+              "secondary-container": "#454650",
+              "on-secondary-container": "#b4b4c0",
+              "secondary-fixed-dim": "#c6c5d1",
+              "on-primary": "#690005",
+              "surface-container-lowest": "#0e0e12",
+              "on-tertiary-container": "#f8f8fa",
+              "on-surface-variant": "#e6bdb8",
+              "tertiary-fixed": "#e2e2e4",
+              "surface-container-highest": "#353439",
+              "tertiary-container": "#707274",
+              "accent-crimson-hover": "#b23a48",
+              background: "#131317",
+              "on-error": "#b23a48",
+              "on-secondary": "#2f3039",
+              tertiary: "#c6c6c8",
+              "surface-container": "#1f1f23",
+              primary: "#ffb4ab",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              "gutter-mobile": "1rem",
+              "space-xs": "0.25rem",
+              "space-3xl": "6rem",
+              "space-xl": "2.5rem",
+              "space-lg": "1.5rem",
+              "space-sm": "0.5rem",
+              "space-2xl": "4rem",
+              gutter: "1.5rem",
+              "margin-mobile": "1.25rem",
+              "space-md": "1rem",
+              margin: "3rem",
+            },
+            fontFamily: {
+              sans: ["Manrope", "sans-serif"],
+              "display-hero-mobile": ["Manrope", "sans-serif"],
+              "headline-sm": ["Manrope", "sans-serif"],
+              "body-md": ["Manrope", "sans-serif"],
+              "label-sm": ["Manrope", "sans-serif"],
+              "display-hero": ["Manrope", "sans-serif"],
+              "label-md": ["Manrope", "sans-serif"],
+              "body-lg": ["Manrope", "sans-serif"],
+              "headline-md": ["Manrope", "sans-serif"],
+              "headline-lg-mobile": ["Manrope", "sans-serif"],
+              "headline-lg": ["Manrope", "sans-serif"],
+              "body-sm": ["Manrope", "sans-serif"],
+            },
+            fontSize: {
+              "display-hero-mobile": [
+                "40px",
+                {
+                  lineHeight: "48px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "headline-sm": [
+                "20px",
+                {
+                  lineHeight: "28px",
+                  fontWeight: "500",
+                },
+              ],
+              "body-md": [
+                "15px",
+                {
+                  lineHeight: "24px",
+                  fontWeight: "400",
+                },
+              ],
+              "label-sm": [
+                "11px",
+                {
+                  lineHeight: "14px",
+                  letterSpacing: "0.08em",
+                  fontWeight: "600",
+                },
+              ],
+              "display-hero": [
+                "72px",
+                {
+                  lineHeight: "80px",
+                  letterSpacing: "-0.03em",
+                  fontWeight: "700",
+                },
+              ],
+              "label-md": [
+                "13px",
+                {
+                  lineHeight: "18px",
+                  letterSpacing: "0.04em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-lg": [
+                "18px",
+                {
+                  lineHeight: "28px",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-md": [
+                "28px",
+                {
+                  lineHeight: "36px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg-mobile": [
+                "32px",
+                {
+                  lineHeight: "40px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": [
+                "48px",
+                {
+                  lineHeight: "56px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-sm": [
+                "13px",
+                {
+                  lineHeight: "20px",
+                  fontWeight: "400",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-surface font-body-md text-body-md text-on-surface antialiased"
+    style="font-family: Manrope, sans-serif !important"
+  >
+    <header
+      class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl border-b border-border-subtle"
+    >
+      <div
+        class="h-20 w-full px-margin-mobile lg:px-margin flex items-center justify-center"
+      >
+        <div class="flex items-center gap-space-lg">
+          <nav
+            class="hidden xl:flex items-center gap-space-lg"
+            data-active-classes="text-text-primary border-b-2 border-border-focus font-label-md text-label-md"
+          >
+            <a
+              aria-current="page"
+              class="font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
+              data-path="about"
+              href="#hero"
+              >About</a
+            ><a
+              class="font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
+              data-path="skills"
+              href="#skills"
+              >Skills</a
+            ><a
+              class="font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
+              data-path="ui-ux-projects"
+              href="#ui-projects"
+              >UI/UX</a
+            ><a
+              class="font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
+              data-path="3d-modeling"
+              href="#3d-renders"
+              >3D Modeling</a
+            ><a
+              class="font-label-md text-label-md uppercase tracking-wider text-text-muted hover:text-text-primary transition-colors py-space-xs"
+              data-path="contact"
+              href="#contact"
+              >Get in Touch</a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main class="w-full pt-20 bg-surface min-h-screen">
+      <div class="flex flex-col w-full">
+        <!-- Atmospheric Spatial Grid Ambient Glow (contained) -->
+        <div class="relative w-full overflow-hidden">
+          <div
+            class="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-primary-container/5 rounded-full blur-[140px] pointer-events-none"
+          ></div>
+          <div
+            class="absolute top-[40%] right-[-10%] w-[600px] h-[600px] bg-primary-container/4 rounded-full blur-[160px] pointer-events-none"
+          ></div>
+          <!-- MAIN WRAPPER CONTAINER (1280px-1440px desktop baseline) -->
+          <div
+            class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin space-y-space-3xl py-space-xl"
+          >
+            <!-- ==========================================
+               1. HERO SECTION (Desktop 2-Column Split)
+               ========================================== -->
+            <section
+              class="relative pt-space-md lg:pt-space-lg min-h-[75vh] flex flex-col justify-center"
+              id="hero"
+            >
+              <div
+                class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl lg:gap-space-2xl items-center"
+              >
+                <!-- Hero Left Column (7 Cols) -->
+                <div
+                  class="lg:col-span-7 flex flex-col items-start space-y-space-lg"
+                >
+                  <!-- Status Badge & Pulse -->
+                  <div
+                    class="inline-flex items-center gap-space-sm px-space-md py-space-xs rounded bg-surface-container-low border border-border-subtle"
+                  >
+                    <span
+                      class="font-label-sm text-label-md uppercase tracking-wider text-text-muted"
+                      >HELLO, I'M</span
+                    >
+                  </div>
+                  <!-- Hero Typography -->
+                  <div class="space-y-space-xs">
+                    <h1
+                      class="font-display-hero text-display-hero tracking-tighter text-text-primary uppercase leading-none"
+                    >
+                      Angelika Mae Cruz
+                    </h1>
+                    <p
+                      class="font-headline-md text-headline-md text-secondary tracking-tight uppercase pt-space-xs"
+                    >
+                      UI/UX Designer &amp; 3D Modeler
+                    </p>
+                  </div>
+                  <!-- Narrative / Editorial Summary -->
+                  <p
+                    class="font-body-lg text-body-lg text-text-muted max-w-xl leading-relaxed"
+                  >
+                    UI/UX Designer with 4 years of experience designing
+                    user-centered web, mobile, and tablet applications.
+                    Experienced in translating business requirements into
+                    wireframes, prototypes, and high-fidelity UI designs using
+                    Figma, with additional skills in 3D modeling using Blender.
+                    Also experienced in production support, SQL, and Jenkins
+                  </p>
+                  <!-- Dual CTA Action Cluster -->
+                  <div
+                    class="flex flex-wrap items-center gap-space-md pt-space-xs"
+                  >
+                    <a
+                      class="inline-flex items-center gap-space-xs px-space-lg py-space-md rounded bg-primary-container text-on-primary-container font-label-md text-label-md uppercase tracking-wider hover:bg-accent-crimson-hover transition-colors shadow-lg shadow-primary-container/10 group"
+                      href="#ui-projects"
+                    >
+                      <span class="">View My Work</span>
+                    </a>
+                    <a
+                      class="inline-flex items-center gap-space-xs px-space-lg py-space-md rounded bg-surface-card border border-border-subtle text-text-primary font-label-md text-label-md uppercase tracking-wider hover:border-text-muted hover:bg-surface-card-hover transition-colors group"
+                      href="assets/cv.pdf"
+                      download="cv.pdf"
+                    >
+                      <span class="">Download Resume</span>
+                      <span
+                        class="material-symbols-outlined text-[16px] group-hover:translate-y-0.5 transition-transform"
+                        >arrow_downward</span
+                      >
+                    </a>
+                  </div>
+                </div>
+                <!-- Hero Right Column (5 Cols): Studio Monochrome Portrait Card -->
+                <div class="lg:col-span-5 relative">
+                  <div
+                    class="relative w-full aspect-square rounded-[50%] bg-surface-card border border-border-subtle p-2 group overflow-hidden"
+                  >
+                    <!-- Portrait Imagery Container -->
+                    <div
+                      class="relative w-full h-full overflow-hidden rounded-[50%] bg-surface-container-lowest"
+                    >
+                      <img
+                        class="w-full h-full object-cover object-[center_22%] group-hover:scale-105 transition-transform duration-700 ease-out"
+                        alt="Studio portrait of Angelika Mae Cruz looking over her shoulder"
+                        src="assets/profile.jpeg"
+                      />
+                      <!-- Vignette & Specular Gradient -->
+                      <div
+                        class="absolute inset-0 bg-gradient-to-t from-surface-base via-surface-base/30 to-transparent"
+                      ></div>
+                    </div>
+                  </div>
+                  <!-- Subtle background accent shadow -->
+                  <div
+                    class="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-container/10 rounded-full blur-2xl -z-10 pointer-events-none"
+                  ></div>
+                </div>
+              </div>
+            </section>
+            <!-- ==========================================
+               2. ABOUT ME SECTION (Desktop 12-Column Split)
+               ========================================== -->
+            <!-- ==========================================
+               3. SKILLS & EXPERTISE SECTION
+               ========================================== -->
+            <section class="pt-space-2xl" id="skills">
+              <!-- Section Header -->
+              <div class="flex items-center gap-space-md mb-space-xl">
+                <span class="h-px bg-border-subtle flex-1"></span>
+                <h2
+                  class="font-headline-sm text-headline-sm text-text-primary uppercase tracking-wider shrink-0"
+                >
+                  SKILLS &amp; EXPERTISE
+                </h2>
+                <span class="h-px bg-border-subtle flex-1"></span>
+              </div>
+              <div
+                class="rounded bg-surface-card border border-border-subtle overflow-hidden"
+              >
+                <div
+                  class="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-border-subtle"
+                >
+                  <div class="p-space-lg lg:p-space-xl">
+                    <div class="flex items-start justify-between gap-space-sm">
+                      <span
+                        class="font-label-sm text-label-sm uppercase tracking-wider text-primary-container"
+                        >01</span
+                      >
+                      <span
+                        class="material-symbols-outlined text-primary-container text-[22px]"
+                        >design_services</span
+                      >
+                    </div>
+                    <h3
+                      class="font-headline-md text-headline-md lg:text-[22px] lg:leading-7 xl:text-[28px] xl:leading-9 text-text-primary uppercase tracking-tight mt-space-md"
+                    >
+                      Design
+                    </h3>
+                    <p
+                      class="font-body-sm text-body-sm text-text-muted mt-space-xs"
+                    >
+                      Interfaces, documentation, and 3D
+                    </p>
+                    <ul class="flex flex-wrap gap-2 mt-space-lg">
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        Figma
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        Wireframing
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        Prototyping
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        User Stories
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        Documentation
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        3D Modeling
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        Blender
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="p-space-lg lg:p-space-xl">
+                    <div class="flex items-start justify-between gap-space-sm">
+                      <span
+                        class="font-label-sm text-label-sm uppercase tracking-wider text-primary-container"
+                        >02</span
+                      >
+                      <span
+                        class="material-symbols-outlined text-primary-container text-[22px]"
+                        >code</span
+                      >
+                    </div>
+                    <h3
+                      class="font-headline-md text-headline-md lg:text-[22px] lg:leading-7 xl:text-[28px] xl:leading-9 text-text-primary uppercase tracking-tight mt-space-md"
+                    >
+                      Frontend
+                    </h3>
+                    <p
+                      class="font-body-sm text-body-sm text-text-muted mt-space-xs"
+                    >
+                      Markup, components, and delivery
+                    </p>
+                    <ul class="flex flex-wrap gap-2 mt-space-lg">
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        HTML
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        CSS
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        TypeScript
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        Angular
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        Agile/Scrum
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="p-space-lg lg:p-space-xl">
+                    <div class="flex items-start justify-between gap-space-sm">
+                      <span
+                        class="font-label-sm text-label-sm uppercase tracking-wider text-primary-container"
+                        >03</span
+                      >
+                      <span
+                        class="material-symbols-outlined text-primary-container text-[22px]"
+                        >widgets</span
+                      >
+                    </div>
+                    <h3
+                      class="font-headline-md text-headline-md lg:text-[22px] lg:leading-7 xl:text-[28px] xl:leading-9 text-text-primary uppercase tracking-tight mt-space-md"
+                    >
+                      Additional Skills
+                    </h3>
+                    <p
+                      class="font-body-sm text-body-sm text-text-muted mt-space-xs"
+                    >
+                      Cloud, pipelines, and data
+                    </p>
+                    <ul class="flex flex-wrap gap-2 mt-space-lg">
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        Microsoft Azure
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        Jenkins
+                      </li>
+                      <li
+                        class="font-body-sm text-body-sm text-text-primary px-3 py-1.5 rounded bg-surface-container-low border border-border-subtle"
+                      >
+                        SQL
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- ==========================================
+               4. UI/UX PROJECTS SECTION
+               ========================================== -->
+            <section class="pt-space-2xl" id="ui-projects">
+              <!-- Section Header -->
+              <div class="mb-space-xl">
+                <div class="flex items-center gap-space-md">
+                  <span class="h-px bg-border-subtle flex-1"></span>
+                  <h2
+                    class="font-headline-sm text-headline-sm text-text-primary uppercase tracking-wider shrink-0"
+                  >
+                    UI/UX PERSONAL PROJECTS
+                  </h2>
+                  <span class="h-px bg-border-subtle flex-1"></span>
+                </div>
+              </div>
+              <div class="max-w-3xl mx-auto">
+                <button
+                  type="button"
+                  id="project-card"
+                  class="w-full text-left cursor-pointer rounded bg-surface-card border border-border-subtle hover:border-border-focus transition-all group overflow-hidden flex flex-col justify-between"
+                  aria-haspopup="dialog"
+                  aria-controls="project-sheet"
+                >
+                  <div>
+                    <div
+                      class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden border-b border-border-subtle"
+                    >
+                      <img
+                        class="w-full h-full object-cover object-top group-hover:scale-102 transition-transform duration-500"
+                        alt="PAWz luxury couture for pets"
+                        src="assets/pawz.svg"
+                      />
+                    </div>
+                    <div class="p-space-lg space-y-space-md">
+                      <div class="flex flex-wrap gap-2">
+                        <span
+                          class="font-label-sm text-label-sm uppercase tracking-wider px-2 py-0.5 rounded bg-surface-container-low border border-border-subtle text-text-primary"
+                          >Web</span
+                        >
+                        <span
+                          class="font-label-sm text-label-sm uppercase tracking-wider px-2 py-0.5 rounded bg-surface-container-low border border-border-subtle text-text-primary"
+                          >Mobile</span
+                        >
+                      </div>
+                      <h3
+                        class="font-headline-md text-headline-md text-text-primary tracking-tight group-hover:text-primary-container transition-colors"
+                      >
+                        Cotton & Co.
+                      </h3>
+                      <p
+                        class="font-body-md text-body-md text-text-muted leading-relaxed"
+                      >
+                        A luxury couture house for fur babies. PAWz shapes
+                        tailored garments and a quiet shopping experience, so
+                        dressing a pet feels as considered as dressing yourself.
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </section>
+            <dialog id="project-sheet" aria-label="Cotton &amp; Co. project">
+              <div
+                id="project-sheet-panel"
+                class="absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col overflow-hidden rounded-t-2xl border-t border-border-subtle bg-[#FFFDF9] shadow-2xl"
+              >
+                <div
+                  id="project-sheet-scroll"
+                  class="min-h-0 flex-1 overflow-y-auto overscroll-contain"
+                >
+                  <div
+                    class="sticky top-0 z-10 flex h-0 items-start justify-center"
+                  >
+                    <span
+                      class="mt-3 h-1 w-10 rounded-full bg-surface/70"
+                    ></span>
+                    <button
+                      type="button"
+                      id="project-sheet-close"
+                      class="pointer-events-auto absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-surface/90 text-text-primary backdrop-blur hover:border-border-focus"
+                      aria-label="Close"
+                    >
+                      <span class="material-symbols-outlined text-[18px]"
+                        >close</span
+                      >
+                    </button>
+                  </div>
+                  <img
+                    class="block h-auto w-full"
+                    alt="Cotton &amp; Co. full project design"
+                    src="assets/pawz.svg"
+                  />
+                </div>
+              </div>
+            </dialog>
+            <!-- ==========================================
+               5. 3D MODELING & RENDERS SECTION
+               ========================================== -->
+            <section class="pt-space-2xl" id="3d-renders">
+              <!-- Section Header -->
+              <div class="mb-space-xl">
+                <div class="flex items-center gap-space-md">
+                  <span class="h-px bg-border-subtle flex-1"></span>
+                  <h2
+                    class="font-headline-sm text-headline-sm text-text-primary uppercase tracking-wider shrink-0 text-center"
+                  >
+                    3D MODELING &amp; RENDERS
+                  </h2>
+                  <span class="h-px bg-border-subtle flex-1"></span>
+                </div>
+                <div class="flex justify-center mt-space-md">
+                  <div
+                    class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-card border border-border-subtle"
+                  >
+                    <span
+                      class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted"
+                      >OCTANE / CYCLES / 4K PBR PIPELINE</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md"
+              >
+                <div
+                  class="rounded bg-surface-card border border-border-subtle hover:border-border-focus transition-all group overflow-hidden"
+                >
+                  <div
+                    class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden"
+                  >
+                    <img
+                      class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
+                      alt=""
+                      src="https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/5257a5162128823.63d095f2b4227.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="rounded bg-surface-card border border-border-subtle hover:border-border-focus transition-all group overflow-hidden"
+                >
+                  <div
+                    class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden"
+                  >
+                    <img
+                      class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
+                      alt=""
+                      src="https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/570a29162128823.65c0bbd7e7fbd.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="rounded bg-surface-card border border-border-subtle hover:border-border-focus transition-all group overflow-hidden"
+                >
+                  <div
+                    class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden"
+                  >
+                    <img
+                      class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
+                      alt=""
+                      src="https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/15d9ac162128823.65c0bbd7e2879.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="rounded bg-surface-card border border-border-subtle hover:border-border-focus transition-all group overflow-hidden"
+                >
+                  <div
+                    class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden"
+                  >
+                    <img
+                      class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
+                      alt=""
+                      src="https://mir-s3-cdn-cf.behance.net/project_modules/source/e98c43162128823.65c0bbd7dffd6.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="rounded bg-surface-card border border-border-subtle hover:border-border-focus transition-all group overflow-hidden"
+                >
+                  <div
+                    class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden"
+                  >
+                    <img
+                      class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
+                      alt=""
+                      src="https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/1d7a0b162128823.65c0bc96a25e6.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="rounded bg-surface-card border border-border-subtle hover:border-border-focus transition-all group overflow-hidden"
+                >
+                  <div
+                    class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden"
+                  >
+                    <img
+                      class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
+                      alt=""
+                      src="https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/e00889162128823.65c0bbd7e1a55.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="rounded bg-surface-card border border-border-subtle hover:border-border-focus transition-all group overflow-hidden"
+                >
+                  <div
+                    class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden"
+                  >
+                    <img
+                      class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
+                      alt=""
+                      src="https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/9e2d8c162128823.65c0bbd7e5a5d.png"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer
+      class="w-full bg-surface-container-lowest border-t border-border-subtle mt-space-3xl"
+      id="contact"
+    >
+      <div
+        class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-2xl"
+      >
+        <div class="flex items-center gap-space-md mb-space-xl">
+          <span class="h-px bg-border-subtle flex-1"></span>
+          <h2
+            class="font-headline-sm text-headline-sm text-text-primary uppercase tracking-wider shrink-0"
+          >
+            GET IN TOUCH
+          </h2>
+          <span class="h-px bg-border-subtle flex-1"></span>
+        </div>
+        <div
+          class="max-w-2xl mx-auto rounded bg-surface-card border border-border-subtle divide-y divide-border-subtle"
+        >
+          <a
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-space-lg py-space-md hover:bg-surface-card-hover transition-colors"
+            href="mailto:cruzangelika3020@gmail.com"
+          >
+            <span
+              class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted"
+              >Email</span
+            >
+            <span class="font-body-md text-body-md text-text-primary"
+              >cruzangelika3020@gmail.com</span
+            >
+          </a>
+          <a
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-space-lg py-space-md hover:bg-surface-card-hover transition-colors"
+            href="https://linkedin.com/in/angelikamaecruz"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span
+              class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted"
+              >LinkedIn</span
+            >
+            <span class="font-body-md text-body-md text-text-primary"
+              >linkedin.com/in/angelikamaecruz</span
+            >
+          </a>
+          <a
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-space-lg py-space-md hover:bg-surface-card-hover transition-colors"
+            href="tel:09482732065"
+          >
+            <span
+              class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted"
+              >Contact number</span
+            >
+            <span class="font-body-md text-body-md text-text-primary"
+              >09482732065</span
+            >
+          </a>
+          <a
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-space-lg py-space-md hover:bg-surface-card-hover transition-colors"
+            href="https://behance.net/angelikamaecruz"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span
+              class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted"
+              >Behance</span
+            >
+            <span class="font-body-md text-body-md text-text-primary"
+              >behance.net/angelikamaecruz</span
+            >
+          </a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      (function () {
+        var card = document.getElementById("project-card");
+        var sheet = document.getElementById("project-sheet");
+        var panel = document.getElementById("project-sheet-panel");
+        var closeBtn = document.getElementById("project-sheet-close");
+        if (!card || !sheet || !panel || !closeBtn) return;
+
+        var closing = false;
+
+        function openSheet() {
+          closing = false;
+          sheet.showModal();
+          document.documentElement.style.overflow = "hidden";
+          requestAnimationFrame(function () {
+            sheet.classList.add("is-open");
+          });
+          closeBtn.focus();
+        }
+
+        function finishClose() {
+          if (sheet.open) sheet.close();
+          sheet.classList.remove("is-open");
+          document.documentElement.style.overflow = "";
+          closing = false;
+          card.focus();
+        }
+
+        function closeSheet() {
+          if (!sheet.open || closing) return;
+          closing = true;
+          sheet.classList.remove("is-open");
+          var done = false;
+          function finish(event) {
+            if (event && event.target !== panel) return;
+            if (done) return;
+            done = true;
+            panel.removeEventListener("transitionend", finish);
+            finishClose();
+          }
+          panel.addEventListener("transitionend", finish);
+          setTimeout(finish, 500);
+        }
+
+        card.addEventListener("click", openSheet);
+        closeBtn.addEventListener("click", closeSheet);
+        sheet.addEventListener("cancel", function (event) {
+          event.preventDefault();
+          closeSheet();
+        });
+        sheet.addEventListener("keydown", function (event) {
+          if (event.key !== "Escape") return;
+          event.preventDefault();
+          closeSheet();
+        });
+        sheet.addEventListener("click", function (event) {
+          if (event.target === sheet) closeSheet();
+        });
+      })();
+    </script>
+  </body>
+</html>
